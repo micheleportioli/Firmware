@@ -308,6 +308,7 @@ private:
 	bool			_primary_pwm_device;	///< true if we are the default PWM output
 	bool			_lockdown_override;	///< allow to override the safety lockdown
 	bool			_armed;			///< wether the system is armed
+	uint32_t  _uavcan_enable; ///< capture UAVCAN mode
 
 	float			_battery_amp_per_volt;	///< current sensor amps/volt
 	float			_battery_amp_bias;	///< current sensor bias
@@ -931,6 +932,8 @@ PX4IO::init()
 		DEVICE_DEBUG("task start failed: %d", errno);
 		return -errno;
 	}
+
+	(void) param_get(param_find("UAVCAN_ENABLE"), &_uavcan_enable);
 
 	return OK;
 }
@@ -2021,6 +2024,11 @@ PX4IO::io_publish_raw_rc()
 int
 PX4IO::io_publish_pwm_outputs()
 {
+	// Don't publish PWM outputs when UAVCAN motor control is enabled
+	if (_uavcan_enable >= 3) {
+		return OK;
+	}
+
 	/* data we are going to fetch */
 	actuator_outputs_s outputs = {};
 	multirotor_motor_limits_s motor_limits;
