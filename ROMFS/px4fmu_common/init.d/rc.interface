@@ -11,6 +11,40 @@
 
 set SDCARD_MIXERS_PATH /fs/microsd/etc/mixers
 
+if [ $MIXER_CAN != none -a $MIXER_CAN != skip ]
+then
+	#
+	# Load CAN mixer
+	#
+
+	set MIXER_CAN_FILE none
+	set OUTPUT_CAN_DEV /dev/uavcan/esc
+
+	# Use the mixer file from the SD-card if it exists
+	if [ -f ${SDCARD_MIXERS_PATH}/${MIXER_CAN}.can.mix ]
+	then
+		set MIXER_CAN_FILE ${SDCARD_MIXERS_PATH}/${MIXER_CAN}.can.mix
+
+	else
+		if [ -f /etc/mixers/${MIXER_CAN}.can.mix ]
+		then
+			set MIXER_CAN_FILE /etc/mixers/${MIXER_CAN}.can.mix
+		fi
+	fi
+
+	if mixer load ${OUTPUT_CAN_DEV} ${MIXER_CAN_FILE}
+	then
+		echo "INFO  [init] Mixer: ${MIXER_CAN_FILE} on ${OUTPUT_CAN_DEV}"
+	else
+		echo "ERROR  [init] Failed loading mixer: ${MIXER_CAN_FILE}"
+		echo "ERROR  [init] Failed loading mixer: ${MIXER_CAN_FILE}" >> $LOG_FILE
+		tone_alarm ${TUNE_ERR}
+	fi
+
+	unset OUTPUT_CAN_DEV
+	unset MIXER_CAN_FILE
+fi
+
 if [ $MIXER != none -a $MIXER != skip ]
 then
 	#
@@ -86,12 +120,8 @@ then
 		fi
 
 		#
-		# Set disarmed, min and max PWM values
+		# Set min and max PWM values
 		#
-		if [ $PWM_DISARMED != none ]
-		then
-			pwm disarmed -c ${PWM_OUT} -p ${PWM_DISARMED}
-		fi
 		if [ $PWM_MIN != none ]
 		then
 			pwm min -c ${PWM_OUT} -p ${PWM_MIN}
@@ -100,6 +130,21 @@ then
 		then
 			pwm max -c ${PWM_OUT} -p ${PWM_MAX}
 		fi
+	fi
+
+	# Transitional support until all configs
+	# are updated
+	if [ $PWM_MCHDIS == none ]
+	then
+		set PWM_MCHDIS ${PWM_OUT}
+	fi
+
+	#
+	# Set disarmed values
+	#
+	if [ $PWM_DISARMED != none -a $PWM_MCHDIS != none ]
+	then
+		pwm disarmed -e -c ${PWM_MCHDIS} -p ${PWM_DISARMED}
 	fi
 
 	if [ $FAILSAFE != none ]
@@ -239,6 +284,7 @@ fi
 unset PWM_OUT
 unset PWM_RATE
 unset PWM_ACHDIS
+unset PWM_MCHDIS
 unset PWM_MIN
 unset PWM_MAX
 unset PWM_AUX_OUT

@@ -499,6 +499,10 @@ Standard::waiting_on_tecs()
 void
 Standard::set_max_mc(unsigned pwm_value)
 {
+	if (_params->vtol_motor_count <= 0) {
+		return;
+	}
+
 	int ret;
 	unsigned servo_count;
 	const char *dev = PWM_OUTPUT0_DEVICE_PATH;

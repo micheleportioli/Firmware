@@ -85,6 +85,10 @@ VtolType::~VtolType()
 */
 void VtolType::set_idle_mc()
 {
+	if (_params->vtol_motor_count <= 0) {
+		return;
+	}
+
 	const char *dev = PWM_OUTPUT0_DEVICE_PATH;
 	int fd = px4_open(dev, 0);
 
@@ -119,6 +123,10 @@ void VtolType::set_idle_mc()
 */
 void VtolType::set_idle_fw()
 {
+	if (_params->vtol_motor_count <= 0) {
+		return;
+	}
+
 	const char *dev = PWM_OUTPUT0_DEVICE_PATH;
 	int fd = px4_open(dev, 0);
 
