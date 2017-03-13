@@ -1,0 +1,39 @@
+#!nsh
+#
+# @name V24
+# @type Standard VTOL
+# @maintainer Andreas Antener <andreas@uaventure.com>
+# @output CAN Octo X Cox
+# @output MAIN1 Aileron right outer
+# @output MAIN2 Aileron right inner
+# @output MAIN3 Aileron left inner
+# @output MAIN4 Aileron left outer
+# @output MAIN5 Canard right
+# @output MAIN6 Canard left
+# @output MAIN7 Throttle
+#
+
+sh /etc/init.d/rc.vtol_defaults
+
+if [ $AUTOCNF == yes ]
+then
+    param set VT_TYPE 2
+    # 0 motor count (PWM) as they are on CAN
+    param set VT_MOT_COUNT 0
+
+    param set PWM_DISARMED 950
+    param set PWM_AUX_DISARMED 0
+    param set PWM_RATE 50
+fi
+
+set MIXER_CAN v24
+
+set MIXER v24
+set PWM_OUT 12345678
+set PWM_MCHDIS 5
+set PWM_RATE p:PWM_RATE
+
+set MIXER_AUX v24
+set PWM_AUX_OUT 123456
+
+set MAV_TYPE 22
