@@ -5,12 +5,12 @@
 # @maintainer Andreas Antener <andreas@uaventure.com>
 # @output CAN Octo X Cox
 # @output MAIN1 Aileron right outer
-# @output MAIN2 Aileron right inner
-# @output MAIN3 Aileron left inner
-# @output MAIN4 Aileron left outer
-# @output MAIN5 Canard right
-# @output MAIN6 Canard left
-# @output MAIN7 Throttle
+# @output MAIN2 Aileron left outer
+# @output MAIN3 Canard right
+# @output MAIN4 Canard left
+# @output MAIN5 Throttle
+# @output AUX1 Aileron right inner
+# @output AUX2 Aileron left inner
 #
 
 sh /etc/init.d/rc.vtol_defaults
