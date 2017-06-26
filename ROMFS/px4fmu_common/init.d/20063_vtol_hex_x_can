@@ -1,0 +1,75 @@
+#!nsh
+#
+# @name FlyingWings Falcon Vertigo Delta Quad VTOL CAN Example
+# @type Standard VTOL
+# @maintainer Mathieu Brsciani <brescianimathieu@gmail.com>
+# @output CAN Quad X
+# @output AUX1 Aileron 1
+# @output AUX2 Aileron 2
+# @output AUX3 Throttle
+#
+
+sh /etc/init.d/rc.vtol_defaults
+
+if [ $AUTOCNF == yes ]
+then
+    param set VT_TYPE 2
+    # 0 motor count (PWM) as they are on CAN
+    param set VT_MOT_COUNT 0
+    param set VT_TRANS_THR 0.85
+    param set VT_ARSP_TRANS 14
+    param set VT_ARSP_BLEND 8
+    param set VT_TRANS_TIMEOUT 15.0
+
+    param set PWM_DISARMED 900
+    param set PWM_AUX_DISARMED 950
+    param set PWM_RATE 50
+
+    param set MC_ROLL_P 6.5
+    param set MC_ROLLRATE_P 0.2
+    param set MC_ROLLRATE_I 0.05
+    param set MC_ROLLRATE_D 0.003
+    param set MC_ROLLRATE_FF 0.0
+    param set MC_PITCH_P 6.0
+    param set MC_PITCHRATE_P 0.15
+    param set MC_PITCHRATE_I 0.05
+    param set MC_PITCHRATE_D 0.003
+    param set MC_PITCHRATE_FF 0.0
+    # Disable yaw control in order to allow the VTOL to align itself with the wind direction
+    param set MC_YAW_P 0
+    # And feed the input command to the yaw rate controller
+    param set MC_YAW_FF 1
+    param set MC_YAWRATE_P 0.35
+    param set MC_YAWRATE_I 0.1
+    param set MC_YAWRATE_D 0.0
+    param set MC_YAWRATE_FF 0.0
+    param set MC_YAWRATE_MAX 40
+    param set MC_YAWRAUTO_MAX 40
+
+    param set MPC_Z_VEL_I 0.1
+    param set MPT_THR_HOVER 0.68
+
+    param set FW_PR_FF 0.4
+    param set FW_PR_I 0.15
+    param set FW_PR_IMAX 0.4
+    param set FW_PR_P 0.14
+    param set FW_RR_FF 0.3
+    param set FW_RR_I 0.15
+    param set FW_RR_IMAX 0.2
+    param set FW_RR_P 0.21
+    param set FW_THR_CRUISE 0.6
+fi
+
+# Load CAN mixer for lifting system
+set MIXER_CAN vtol_hexa_x
+
+set PWM_RATE p:PWM_RATE
+
+# Load AUX mixer for FW servos and pusher
+set MIXER_AUX vtol_delta
+set PWM_AUX_OUT 123
+# Set proper disarmed value to the pusher ESC (AUX 3)
+set PWM_ACHDIS 3
+
+set MAV_TYPE 22
+
