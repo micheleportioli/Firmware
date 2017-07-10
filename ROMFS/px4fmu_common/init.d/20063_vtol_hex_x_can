@@ -2,6 +2,7 @@
 #
 # @name FlyingWings Falcon Vertigo Delta Quad VTOL CAN Example
 # @type Standard VTOL
+# @class VTOL
 # @maintainer Mathieu Brsciani <brescianimathieu@gmail.com>
 # @output CAN Quad X
 # @output AUX1 Aileron 1
