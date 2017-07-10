@@ -2,6 +2,7 @@
 #
 # @name Fun Cub Quad VTOL CAN Example
 # @type Standard VTOL
+# @class VTOL
 # @maintainer Andreas Antener <andreas@uaventure.com>
 # @output CAN Quad X
 # @output MAIN1 Aileron 1
