@@ -2,6 +2,7 @@
 #
 # @name V24
 # @type Standard VTOL
+# @class VTOL
 # @maintainer Andreas Antener <andreas@uaventure.com>
 # @output CAN Octo X Cox
 # @output MAIN1 Aileron right outer
