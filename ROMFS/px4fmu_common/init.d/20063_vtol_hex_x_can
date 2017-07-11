@@ -1,12 +1,17 @@
 #!nsh
 #
-# @name FlyingWings Falcon Vertigo Delta Quad VTOL CAN Example
+# @name Hex Plus One Canard VTOL
 # @type Standard VTOL
+# @class VTOL
 # @maintainer Mathieu Brsciani <brescianimathieu@gmail.com>
-# @output CAN Quad X
-# @output AUX1 Aileron 1
-# @output AUX2 Aileron 2
-# @output AUX3 Throttle
+# @output CAN ASYM HEX
+# @output MAIN1 Aileron right outer
+# @output MAIN2 Aileron left outer
+# @output MAIN3 Canard right
+# @output MAIN4 Canard left
+# @output MAIN5 Throttle
+# @output AUX1 Aileron right inner
+# @output AUX2 Aileron left inner
 #
 
 sh /etc/init.d/rc.vtol_defaults
@@ -61,15 +66,16 @@ then
 fi
 
 # Load CAN mixer for lifting system
-set MIXER_CAN vtol_hexa_x
+set MIXER_CAN v24_hex_plus_one
 
+set MIXER v24_hex_plus_one
+set PWM OUT 12345678
+set PWM_MCHDIS 5 	# Disable chanel 5 for pusher
 set PWM_RATE p:PWM_RATE
 
 # Load AUX mixer for FW servos and pusher
-set MIXER_AUX vtol_delta
-set PWM_AUX_OUT 123
-# Set proper disarmed value to the pusher ESC (AUX 3)
-set PWM_ACHDIS 3
+set MIXER_AUX v24_hex_plus_one
+set PWM_AUX_OUT 123456
 
 set MAV_TYPE 22
 
