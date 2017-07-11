@@ -114,12 +114,12 @@ hex_x = [
 ]
 
 hex_asym = [
-    [  30, CW],
-    [ -30, CCW],
-    [ -45, CW],
-    [ 135, CCW],
-    [  45, CCW],
-    [-135, CW],
+    [  30, CW, 1.0, 1.0],
+    [ -30, CCW, 1.0, 1.0],
+    [ -45, CW, 1.0, rcos(30+90)/rcos(45+90)],
+    [ 135, CCW, 1.0, rcos(30+90)/rcos(135+90)],
+    [  45, CCW, 1.0, rcos(30+90)/rcos(45+90)],
+    [-135, CW, 1.0, rcos(30+90)/rcos(135+90)],
 ]
 
 hex_plus = [
@@ -231,7 +231,9 @@ def variableName(variable):
 
 def unpackScales(scalesList):
     if len(scalesList) == 2:
-        scalesList += [1.0] #Add thrust scale
+        scalesList += [1.0, 1.0] #Add thrust scale and normalized lenght
+    elif len(scalesList) == 3:
+        scalesList += [1.0] #Add normalized length
     return scalesList
 
 def printEnum():
@@ -246,9 +248,9 @@ def printScaleTables():
     for table in tables:
         print("const MultirotorMixer::Rotor _config_{}[] = {{".format(variableName(table)))
         for row in table:
-            angle, yawScale, thrustScale = unpackScales(row)
-            rollScale = rcos(angle + 90)
-            pitchScale = rcos(angle)
+            angle, yawScale, thrustScale, normalizedLength = unpackScales(row)
+            rollScale = rcos(angle + 90)*normalizedLength
+            pitchScale = rcos(angle)*normalizedLength
             print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format(rollScale, pitchScale, yawScale, thrustScale))
         print("};\n")
 
