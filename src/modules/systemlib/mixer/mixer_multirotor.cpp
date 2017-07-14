@@ -160,6 +160,9 @@ MultirotorMixer::from_text(Mixer::ControlCallback control_cb, uintptr_t cb_handl
 	} else if (!strcmp(geomname, "6a")) {
 		geometry = MultirotorGeometry::HEX_ASYM;
 
+	} else if (!strcmp(geomname, "6h")) {
+		geometry = MultirotorGeometry::V24_HP1;
+
 	} else if (!strcmp(geomname, "6c")) {
 		geometry = MultirotorGeometry::HEX_COX;
 
