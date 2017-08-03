@@ -54,13 +54,12 @@ def generateHP1Table():
     pSF = pitchScaleFront / thrustScaleFront
     pSM = pitchScaleMid / thrustScaleMid
     pSR = pitchScaleRear / thrustScaleRear
-    ySF = yawScaleRear / thrustScaleFront
+    ySF = yawScaleFront / thrustScaleFront
     ySM = yawScaleMid / thrustScaleMid
     ySR = yawScaleRear / thrustScaleRear
     tSF = thrustScaleFront
     tSM = thrustScaleMid
     tSR = thrustScaleRear
-
 
     print("const MultirotorMixer::Rotor _config_v24_hp1[] = {")
     print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format(-rSM,  pSM, -ySM, tSM ))
