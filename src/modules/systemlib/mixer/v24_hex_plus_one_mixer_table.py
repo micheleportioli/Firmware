@@ -86,10 +86,10 @@ def generateHP1Table():
     tSR = thrustScaleRear
 
     print("const MultirotorMixer::Rotor _config_v24_hp1[] = {")
-    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format(-rSM,  pSM, -ySM, tSM ))
-    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format( rSM,  pSM,  ySM, tSM ))
-    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format( rSF,  pSF, -ySF, tSF ))
-    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format(-rSR, -pSR,  ySR, tSR ))
-    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format(-rSF,  pSF,  ySF, tSF ))
-    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format( rSR, -pSR, -ySR, tSR ))
+    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format(-rSM,  pSM,  w1*ySM, tSM ))
+    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format( rSM,  pSM,  w2*ySM, tSM ))
+    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format( rSF,  pSF,  w3*ySF, tSF ))
+    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format(-rSR, -pSR,  w4*ySR, tSR ))
+    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format(-rSF,  pSF,  w5*ySF, tSF ))
+    print("\t{{ {:9f}, {:9f}, {:9f}, {:9f} }},".format( rSR, -pSR,  w6*ySR, tSR ))
     print("};\n")
