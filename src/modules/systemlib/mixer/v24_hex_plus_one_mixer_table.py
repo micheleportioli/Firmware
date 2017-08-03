@@ -57,10 +57,13 @@ yawScaleFront = yawScaleMid - yawScaleRear
 
 def printReport():
 
-    print('Roll actuation = {:9f}'.format(rollScaleFront+rollScaleMid+rollScaleRear))
-    print('Pitch actuation = {:9f}'.format(pitchScaleFront+pitchScaleMid+pitchScaleRear))
-    print('Yaw actuation = {:9f}'.format(yawScaleFront+yawScaleMid+yawScaleRear))
-    print('Thrust actuation = {:9f}'.format(thrustScaleFront+thrustScaleMid+thrustScaleRear))
+    print('Front gains (r,p,y,t) = {:9f}, {:9f}, {:9f}, {:9f}'.format(rollScaleFront, pitchScaleFront, yawScaleFront, thrustScaleFront))
+    print('Middle gains (r,p,y,t) = {:9f}, {:9f}, {:9f}, {:9f}'.format(rollScaleMid, pitchScaleMid, yawScaleMid, thrustScaleMid))
+    print('Rear gains (r,p,y,t) = {:9f}, {:9f}, {:9f}, {:9f}'.format(rollScaleRear, pitchScaleRear, yawScaleRear, thrustScaleRear))
+    print('Roll actuation = {:9f}'.format(2*(rollScaleFront + rollScaleMid + rollScaleRear)))
+    print('Pitch actuation = {:9f}'.format(2*(pitchScaleFront + pitchScaleMid + pitchScaleRear)))
+    print('Yaw actuation = {:9f}'.format(2*(yawScaleFront + yawScaleMid + yawScaleRear)))
+    print('Thrust actuation = {:9f}'.format(2*(thrustScaleFront + thrustScaleMid + thrustScaleRear)))
 
     print('Load front = {:9f}'.format(rollScaleFront+pitchScaleFront+yawScaleFront+thrustScaleFront))
     print('Load mid = {:9f}'.format(rollScaleMid+pitchScaleMid+yawScaleMid+thrustScaleMid))
