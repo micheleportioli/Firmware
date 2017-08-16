@@ -25,8 +25,8 @@ b = 760.0
 c = 800.0
 d = 575.0
 
-CW = 1
-CCW = -CW
+CCW = 1
+CW = -CCW
 
 w1 = CW
 w2 = CCW
