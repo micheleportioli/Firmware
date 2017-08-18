@@ -467,12 +467,17 @@ void Standard::fill_actuator_outputs()
 		_actuators_out_1->control[actuator_controls_s::INDEX_YAW] =
 			_actuators_fw_in->control[actuator_controls_s::INDEX_YAW];
 
+		// airbrakes
+		_actuators_out_1->control[actuator_controls_s::INDEX_AIRBRAKES] =
+			(_actuators_fw_in->control[5] + 1.0f) * 0.5f;
+
 	} else {
 
 		// zero outputs when inactive
 		_actuators_out_1->control[actuator_controls_s::INDEX_ROLL] = 0.0f;
 		_actuators_out_1->control[actuator_controls_s::INDEX_PITCH] = _params->fw_pitch_trim;
 		_actuators_out_1->control[actuator_controls_s::INDEX_YAW] = 0.0f;
+		_actuators_out_1->control[actuator_controls_s::INDEX_AIRBRAKES] = 0.0f;
 	}
 
 	// set the fixed wing throttle control
