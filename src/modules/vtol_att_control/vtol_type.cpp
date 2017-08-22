@@ -207,6 +207,11 @@ void VtolType::check_quadchute_condition()
 	if (_armed->armed && !_land_detected->landed) {
 		matrix::Eulerf euler = matrix::Quatf(_v_att->q);
 
+		// manual trigger on parachute switch
+		if (_manual_control_sp->parachute_switch == manual_control_setpoint_s::SWITCH_POS_ON) {
+			_attc->abort_front_transition("Manual QC trigger");
+		}
+
 		// fixed-wing minimum altitude
 		if (_params->fw_min_alt > FLT_EPSILON) {
 
