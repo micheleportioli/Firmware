@@ -165,7 +165,6 @@ set(config_module_list
 	# Tutorial code from
 	# https://px4.io/dev/px4_simple_app
 	examples/px4_simple_app
-	examples/px4_simple_app_my
 
 	# Tutorial code from
 	# https://px4.io/dev/daemon
